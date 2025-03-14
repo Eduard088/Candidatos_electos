@@ -1,0 +1,287 @@
+---
+title: "Adición de Variables: Parte 2"
+css: custom.css
+
+execute:
+  enabled: true
+  kernel: R
+--- 
+
+## Cargamos las Librerías: {.fade-in}
+```{r}
+source('~/limpieza/electos/models/R/script.R')
+```
+
+# Proceso Electoral 2015: {.fade-in}
+
+### Cargar el Tibble: {.fade-in}
+En esta sección, cargamos el tibble que contiene los datos limpios del proceso electoral del año 2015.
+```{r}
+datos_2018 <- read_csv("~/limpieza/electos/{{cookiecutter.project_slug}}/data/processed/datos_2018.xlsx")
+
+reactable(datos_2018)
+```
+
+### Sustituir Valores: {.fade-in}
+En esta sección, sustituimos algunos  valores de la variable 'partido'.
+```{r}
+datos_2018 <- procesar_variable(datos_2018, 'NOMBRE_PARTICIPANTE')
+datos_2018 <- procesar_variable_can(datos_2018, 'NOMBRE_PARTICIPANTE')
+```
+
+### Adición de Variables: {.fade-in}
+En esta sección, añadimos nuevas variables al tibble; si se presentaron coaliciones en el proceso electoral, se detectan y se añaden al tibble. Además, se agrega la variable 'anio' con el valor 2015.
+```{r}
+datos_2018 <-  detectar_coaliciones(datos_2018)
+datos_2018 <-  agregar_anio(datos_2018, anio=2018)
+```
+
+### Filtrar Datos: {.fade-in}
+En esta sección, filtramos los datos para quedarnos únicamente con las columnas que nos interesan.
+```{r}
+datos_2018 <- eliminar_na_y_cero(datos_2018)
+```
+
+### Cambiamos Valores: {.fade-in}
+En esta sección, cambiamos los datos para quedarnos únicamente con las columnas que nos interesan.
+```{r}
+datos_2018 <- reemplazar_na_municipio(datos_2018)
+```
+
+### Mostrar el Resultado: {.fade-in}
+Mostramos el tibble actualizado con las nuevas variables añadidas.
+```{r}
+reactable(datos_2018)
+```
+
+### Guardar los Resultados en la Carpeta 'Processed': {.fade-in}
+Finalmente, guardamos los datos actualizados en un archivo CSV en la carpeta 'preprocessed' para su uso posterior.
+```{r}
+# write_csv(datos_2018, "~/limpieza/electos/{{cookiecutter.project_slug}}/data/pre_final/datos_2018.xlsx")
+```
+
+# Proceso Electoral 2019: {.fade-in}
+
+### Cargar el Tibble: {.fade-in}
+En esta sección, cargamos el tibble que contiene los datos limpios del proceso electoral del año 2016.
+```{r}
+datos_2019 <- read_csv("~/limpieza/electos/{{cookiecutter.project_slug}}/data/processed/datos_2019.xlsx")
+```
+
+### Sustituir Valores: {.fade-in}
+En esta sección, sustituimos algunos  valores de la variable 'partido'.
+```{r}
+datos_2019 <- procesar_variable(datos_2019, 'NOMBRE_PARTICIPANTE')
+datos_2019 <- procesar_variable_can(datos_2019, 'NOMBRE_PARTICIPANTE')
+```
+
+### Adición de Variables: {.fade-in}
+En esta sección, añadimos nuevas variables al tibble; si se presentaron coaliciones en el proceso electoral, se detectan y se añaden al tibble. Además, se agrega la variable 'anio' con el valor 2016.
+```{r}
+datos_2019 <-  detectar_coaliciones(datos_2019)
+datos_2019 <-  agregar_anio(datos_2019, anio=2019)
+```
+
+### Filtrar Datos: {.fade-in}
+En esta sección, filtramos los datos para quedarnos únicamente con las columnas que nos interesan.
+```{r}
+datos_2019 <- eliminar_na_y_cero(datos_2019)
+```
+
+### Cambiamos Valores: {.fade-in}
+En esta sección, cambiamos los datos para quedarnos únicamente con las columnas que nos interesan.
+```{r}
+datos_2019 <- reemplazar_na_municipio(datos_2019)
+```
+
+### Mostrar el Resultado: {.fade-in}
+Mostramos el tibble actualizado con las nuevas variables añadidas.
+```{r}
+reactable(datos_2019)
+```
+
+### Guardar los Resultados en la Carpeta 'Processed': {.fade-in}
+Finalmente, guardamos los datos actualizados en un archivo CSV en la carpeta 'preprocessed' para su uso posterior.
+```{r}
+# write_csv(datos_2019, "~/limpieza/electos/{{cookiecutter.project_slug}}/data/pre_final/datos_2019.xlsx")
+```
+
+# Proceso Electoral 2020: {.fade-in}
+
+### Cargar el Tibble: {.fade-in}
+En esta sección, cargamos el tibble que contiene los datos limpios del proceso electoral del año 2017.
+```{r}
+datos_2020 <- read_csv("~/limpieza/electos/{{cookiecutter.project_slug}}/data/processed/datos_2020.xlsx")
+```
+
+### Sustituir Valores: {.fade-in}
+En esta sección, sustituimos algunos  valores de la variable 'partido'.
+```{r}
+datos_2020 <- procesar_variable(datos_2020, 'NOMBRE_PARTICIPANTE')
+datos_2020 <- procesar_variable_can(datos_2020, 'NOMBRE_PARTICIPANTE')
+
+```
+
+### Adición de Variables: {.fade-in}
+En esta sección, añadimos nuevas variables al tibble; si se presentaron coaliciones en el proceso electoral, se detectan y se añaden al tibble. Además, se agrega la variable 'anio' con el valor 2017.
+```{r}
+datos_2020 <-  detectar_coaliciones(datos_2020)
+datos_2020 <-  agregar_anio(datos_2020, anio=2020)
+```
+
+### Filtrar Datos: {.fade-in}
+En esta sección, filtramos los datos para quedarnos únicamente con las columnas que nos interesan.
+```{r}
+datos_2020 <- eliminar_na_y_cero(datos_2020)
+```
+
+
+### Cambiamos Valores: {.fade-in}
+En esta sección, cambiamos los datos para quedarnos únicamente con las columnas que nos interesan.
+```{r}
+datos_2020 <- reemplazar_na_municipio(datos_2020)
+```
+
+### Mostrar el Resultado: {.fade-in}
+Mostramos el tibble actualizado con las nuevas variables añadidas.
+```{r}
+reactable(datos_2020)
+```
+
+### Guardar los Resultados en la Carpeta 'Processed': {.fade-in}
+Finalmente, guardamos los datos actualizados en un archivo CSV en la carpeta 'preprocessed' para su uso posterior.
+```{r}
+# write_csv(datos_2020, "~/limpieza/electos/{{cookiecutter.project_slug}}/data/pre_final/datos_2020.xlsx")
+```
+
+# Proceso Electoral 2021: {.fade-in}
+
+### Cargar el Tibble: {.fade-in}
+En esta sección, cargamos el tibble que contiene los datos limpios del proceso electoral del año 2018.
+```{r}
+datos_2021 <- read_csv("~/limpieza/electos/{{cookiecutter.project_slug}}/data/processed/datos_2021.xlsx")
+```
+
+### Sustituir Valores: {.fade-in}
+En esta sección, sustituimos algunos  valores de la variable 'partido'.
+```{r}
+datos_2021 <- procesar_variable(datos_2021, 'NOMBRE_PARTICIPANTE')
+datos_2021 <- procesar_variable_can(datos_2021, 'NOMBRE_PARTICIPANTE')
+```
+
+### Adición de Variables: {.fade-in}
+En esta sección, añadimos nuevas variables al tibble; si se presentaron coaliciones en el proceso electoral, se detectan y se añaden al tibble. Además, se agrega la variable 'anio' con el valor 2018.
+```{r}
+datos_2021 <-  detectar_coaliciones(datos_2021)
+datos_2021 <-  agregar_anio(datos_2021, anio=2021)
+```
+
+### Filtrar Datos: {.fade-in}
+En esta sección, filtramos los datos para quedarnos únicamente con las columnas que nos interesan.
+```{r}
+datos_2021 <- eliminar_na_y_cero(datos_2021)
+```
+
+### Mostrar el Resultado: {.fade-in}
+Mostramos el tibble actualizado con las nuevas variables añadidas.
+```{r}
+reactable(datos_2021)
+```
+
+### Guardar los Resultados en la Carpeta 'Processed': {.fade-in}
+Finalmente, guardamos los datos actualizados en un archivo CSV en la carpeta 'preprocessed' para su uso posterior.
+```{r}
+# write_csv(datos_2021, "~/limpieza/electos/{{cookiecutter.project_slug}}/data/pre_final/datos_2021.xlsx")
+```
+
+# Proceso Electoral 2022: {.fade-in}
+
+### Cargar el Tibble: {.fade-in}
+En esta sección, cargamos el tibble que contiene los datos limpios del proceso electoral del año 2019.
+```{r}
+datos_2022 <- read_csv("~/limpieza/electos/{{cookiecutter.project_slug}}/data/processed/datos_2022.xlsx")
+```
+
+### Sustituir Valores: {.fade-in}
+En esta sección, sustituimos algunos  valores de la variable 'partido'.
+```{r}
+datos_2022 <- procesar_variable(datos_2022, 'NOMBRE_PARTICIPANTE')
+datos_2022 <- procesar_variable_can(datos_2022, 'NOMBRE_PARTICIPANTE')
+```
+
+### Adición de Variables: {.fade-in}
+En esta sección, añadimos nuevas variables al tibble; si se presentaron coaliciones en el proceso electoral, se detectan y se añaden al tibble. Además, se agrega la variable 'anio' con el valor 2019.
+```{r}
+datos_2022 <-  detectar_coaliciones(datos_2022)
+datos_2022 <-  agregar_anio(datos_2022, anio=2022)
+```
+
+### Filtrar Datos: {.fade-in}
+En esta sección, filtramos los datos para quedarnos únicamente con las columnas que nos interesan.
+```{r}
+datos_2022 <- eliminar_na_y_cero(datos_2022)
+```
+
+### Cambiamos Valores: {.fade-in}
+En esta sección, cambiamos los datos para quedarnos únicamente con las columnas que nos interesan.
+```{r}
+datos_2022 <- reemplazar_na_municipio(datos_2022)
+```
+
+### Mostrar el Resultado: {.fade-in}
+Mostramos el tibble actualizado con las nuevas variables añadidas.
+```{r}
+reactable(datos_2022)
+```
+
+### Guardar los Resultados en la Carpeta 'Processed': {.fade-in}
+Finalmente, guardamos los datos actualizados en un archivo CSV en la carpeta 'preprocessed' para su uso posterior.
+```{r}
+# write_csv(datos_2022, "~/limpieza/electos/{{cookiecutter.project_slug}}/data/pre_final/datos_2022.xlsx")
+```
+
+# Proceso Electoral 2023: {.fade-in}
+
+### Cargar el Tibble: {.fade-in}
+En esta sección, cargamos el tibble que contiene los datos limpios del proceso electoral del año 2021.
+```{r}
+datos_2023 <- read_csv("~/limpieza/electos/{{cookiecutter.project_slug}}/data/processed/datos_2023.xlsx")
+```
+
+### Sustituir Valores: {.fade-in}
+En esta sección, sustituimos algunos  valores de la variable 'partido'.
+```{r}
+datos_2023 <- procesar_variable(datos_2023, 'NOMBRE_PARTICIPANTE')
+datos_2023 <- procesar_variable_can(datos_2023, 'NOMBRE_PARTICIPANTE')
+```
+
+### Adición de Variables: {.fade-in}
+En esta sección, añadimos nuevas variables al tibble; si se presentaron coaliciones en el proceso electoral, se detectan y se añaden al tibble. Además, se agrega la variable 'anio' con el valor 2021.
+```{r}
+datos_2023 <-  detectar_coaliciones(datos_2023)
+datos_2023 <-  agregar_anio(datos_2023, anio=2023)
+```
+
+### Filtrar Datos: {.fade-in}
+En esta sección, filtramos los datos para quedarnos únicamente con las columnas que nos interesan.
+```{r}
+datos_2023 <- eliminar_na_y_cero(datos_2023)
+```
+
+### Cambiamos Valores: {.fade-in}
+En esta sección, cambiamos los datos para quedarnos únicamente con las columnas que nos interesan.
+```{r}
+datos_2023 <- reemplazar_na_municipio(datos_2023)
+```
+
+### Mostrar el Resultado: {.fade-in}
+Mostramos el tibble actualizado con las nuevas variables añadidas.
+```{r}
+reactable(datos_2023)
+```
+
+### Guardar los Resultados en la Carpeta 'Processed': {.fade-in}
+Finalmente, guardamos los datos actualizados en un archivo CSV en la carpeta 'preprocessed' para su uso posterior.
+```{r}
+write_csv(datos_2023, "~/limpieza/electos/{{cookiecutter.project_slug}}/data/pre_final/datos_2023.xlsx")
+```

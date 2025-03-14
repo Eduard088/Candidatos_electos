@@ -1,0 +1,210 @@
+---
+title: "Creación de Base de Datos: Parte 3"
+css: custom.css
+
+execute:
+  enabled: true
+  kernel: R
+---
+
+## Cargamos las Librerías: {.fade-in}
+```{r}
+source('~/limpieza/electos/models/R/script.R')
+```
+
+## Cargar Tibbles: {.fade-in}
+En esta sección, cargamos los datos limpios de los procesos electorales del año 2015 y 2016 para añadir variables adicionales.
+```{r}
+datos_2018 <- read_csv("~/limpieza/electos/{{cookiecutter.project_slug}}/data/pre_final/datos_2018.xlsx")
+
+datos_2019 <- read_csv("~/limpieza/electos/{{cookiecutter.project_slug}}/data/pre_final/datos_2019.xlsx")
+
+datos_2020 <- read_csv("~/limpieza/electos/{{cookiecutter.project_slug}}/data/pre_final/datos_2020.xlsx")
+
+datos_2021 <- read_csv("~/limpieza/electos/{{cookiecutter.project_slug}}/data/pre_final/datos_2021.xlsx")
+
+datos_2022 <- read_csv("~/limpieza/electos/{{cookiecutter.project_slug}}/data/pre_final/datos_2022.xlsx")
+
+datos_2023 <- read_csv("~/limpieza/electos/{{cookiecutter.project_slug}}/data/pre_final/datos_2023.xlsx")
+
+```
+
+```{r}
+datos_2018 <- datos_2018 %>% mutate(ID_MUNICIPIO = as.character(ID_MUNICIPIO))
+datos_2019 <- datos_2019 %>% mutate(ID_MUNICIPIO = as.character(ID_MUNICIPIO))
+datos_2020 <- datos_2020 %>% mutate(ID_MUNICIPIO = as.character(ID_MUNICIPIO))
+datos_2021 <- datos_2021 %>% mutate(ID_MUNICIPIO = as.character(ID_MUNICIPIO))
+datos_2022 <- datos_2022 %>% mutate(ID_MUNICIPIO = as.character(ID_MUNICIPIO))
+datos_2023 <- datos_2023 %>% mutate(ID_MUNICIPIO = as.character(ID_MUNICIPIO))
+```
+
+## Unir Tibbles: {.fade-in}
+En esta sección, unimos los datos de los procesos electorales del año 2015 al 2023 en un solo tibble
+```{r}
+datos_electorales_2015_2023 <- unir_tibbles(datos_2018, datos_2019, datos_2020, datos_2021, datos_2022, datos_2023)
+```
+
+## Visualizar los Datos: {.fade-in}
+Mostramos los datos unidos en una tabla interactiva para una revisión visual rápida.
+```{r}
+reactable(datos_electorales_2015_2023)
+```
+
+
+```{r}
+datos_electorales_2015_2023 <- datos_electorales_2015_2023 %>%
+mutate(SEXO_CANDIDATO = case_when(
+  SEXO_CANDIDATO == 1 ~ "Hombre",
+  SEXO_CANDIDATO == 2 ~ "Mujer",
+  TRUE ~ as.character(SEXO_CANDIDATO)
+))
+```
+
+
+```{r}
+datos_electorales_2015_2023 <- datos_electorales_2015_2023%>%
+rename(Nombre_estado = NOMBRE_ESTADO, Municipio = CABECERA_DISTRITAL_LOCAL, Cargo = TIPO_DE_ELECCION, ID_Municipio = ID_MUNICIPIO, Ayuntamiento = MUNICIPIO, Partido = NOMBRE_PARTICIPANTE, Nombre_candidato = CANDIDATO, Sexo = SEXO_CANDIDATO)
+```
+
+
+```{r}
+datos_electorales_2015_2023_1 <- datos_electorales_2015_2023%>%
+  mutate(Formula = if_else(str_detect(Cargo, "RP"),
+                                  "Representación Proporcional",
+                                  "Mayoría relativa"))
+```
+
+
+```{r}
+datos_electorales_2015_2023_1 <-  datos_electorales_2015_2023_1 %>%
+  mutate(Cargo = case_when(
+    Cargo %in% c("AYUN", "AYUN_ALC", "AYUN_RP", "PRE_COM", "PRES_MUN") ~ "Presidencia Municipal",
+    Cargo %in% c("CONC", "CONC_RP") ~ "Consejal",
+    Cargo %in% c("DIP_LOC_MR", "DIP_LOC_RP") ~ "Diputación",
+    Cargo %in% c("GOB", "GUB") ~ "Gubernatura",
+    Cargo %in% c("REG", "REG_ETN", "REG_MR", "REG_MR_SUP", "REG_RP") ~ "Regiduría",
+    Cargo %in% c("SIN", "SIND", "SIND_1M", "SIND_MR", "SIND_PM", "SIND_RP", "SIND_SUP") ~ "Sindicatura",
+    TRUE ~ Cargo
+  ))
+```
+
+
+```{r}
+reactable(datos_electorales_2015_2023_1)
+```
+
+
+## Guardar los Resultados en la Carpeta 'final': {.fade-in}
+Finalmente, guardamos los datos unidos en un archivo CSV en la carpeta 'final' para su uso posterior.
+```{r}
+write_csv(datos_electorales_2015_2023_1, "/home/barea/limpieza/electos/{{cookiecutter.project_slug}}/data/final/datos_electorales_2015_2023_final.csv")
+```
+
+```{r}
+datos <- read_csv ("/home/barea/limpieza/electos/{{cookiecutter.project_slug}}/data/final/datos_electorales_2015_2023_final.csv")
+reactable(datos)
+```
+```{r}
+datos <- datos %>%
+  mutate(Partido = ifelse(Partido == "CANDIDATURA INDEPENDIENTE" | grepl("^CAND_IND", Partido), 
+                          "Candidatura Independiente", 
+                          Partido))
+```
+```{r}
+datos <- datos %>%
+  mutate(Partido = ifelse(Partido == "(CAND_IND4) JESUS ABRAHAM CANO GONZALEZ" | 
+                          grepl("^CAND_IND", Partido) | 
+                          Partido == "CANDIDATURA INDEPENDIENTE", 
+                          "Candidatura Independiente", 
+                          Partido))
+```
+```{r}
+reactable(datos)
+```
+```{r}
+write_csv(datos, "/home/barea/limpieza/electos/{{cookiecutter.project_slug}}/data/final/datos_electorales_2015_2023_final.csv")
+```
+
+
+
+
+
+```{r}
+datos1 <- read_csv ("/home/barea/limpieza/electos/{{cookiecutter.project_slug}}/data/final/datos_electorales_2015_2023_1.csv")
+reactable(datos1)
+```
+
+```{r}
+datos1 <- read_csv ("/home/barea/limpieza/electos/{{cookiecutter.project_slug}}/data/final/datos_electorales_2015_2023_1.csv")
+reactable(datos1)
+```
+
+
+```{r}
+municipios <- datos %>%
+  filter(TIPO_DE_ELECCION %in% c('AYUN', 'AYUN_ALC', 'AYUN_RP', 'PRES_COM', 'PRES_MUN', 'CONC', 'CONC_RP'))
+reactable(municipios)
+```
+
+
+```{r}
+municipios %>%
+  group_by(Año, SEXO_CANDIDATO) %>%
+  count()
+```
+
+```{r}
+regidores <- datos %>%
+  filter(TIPO_DE_ELECCION %in% c('REG', 'REG_ENT', 'REG_RP', 'REG_MR_SUP'))
+reactable(regidores)
+```
+
+```{r}
+sindicos <- datos %>%
+  filter(TIPO_DE_ELECCION %in% c('SIN', 'SIND', 'SIND_1M', 'SIND_MR', 'SIND_PM',
+  'SIND_RP', 'SIND_SUP'))
+reactable(sindicos)
+```
+
+```{r}
+diputados <- datos %>%
+  filter(TIPO_DE_ELECCION %in% c('DIP_LOC_MR', 'DIP_LOC_RP'))
+reactable(diputados)
+```
+
+```{r}
+diputados %>%
+  group_by(TIPO_DE_ELECCION, SEXO_CANDIDATO) %>%
+  count() %>%
+  rename('frecuencia' = 'n')
+```
+
+
+```{r}
+data_2015 <- read_excel('~/limpieza/electos/{{cookiecutter.project_slug}}/data/final/Integracion_PEF_2015.xlsx')
+
+data_2018 <- read_excel('~/limpieza/electos/{{cookiecutter.project_slug}}/data/final/Integracion_PEF_2018.xlsx')
+
+data_2021 <- read_excel('~/limpieza/electos/{{cookiecutter.project_slug}}/data/final/Integracion_PEF_2021.xlsx')
+```
+
+```{r}
+federales <- unir_tibbles(data_2015, data_2018, data_2021)
+reactable(federales)
+```
+
+```{r}
+federales <- procesar_variable(federales, 'NOMBRE_PARTICIPANTE')
+```
+
+```{r}
+federales <-  detectar_coaliciones(federales)
+```
+
+```{r}
+federales <- eliminar_na_y_cero(federales)
+```
+
+```{r}
+reactable(federales)
+```

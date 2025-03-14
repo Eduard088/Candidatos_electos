@@ -1,0 +1,216 @@
+---
+title: "Limpieza de Datos Electorales: Parte 1"
+css: custom.css
+
+execute:
+  enabled: true
+  kernel: R
+--- 
+## Cargamos las Librerías: {.fade-in}
+
+```{r}
+source('~/limpieza/electos/models/R/script.R')
+```
+
+## Proceso Electoral 2018: {.fade-in}
+
+### Cargar los Archivos del Proceso Electoral 2015: {.fade-in}
+En esta sección, cargamos todos los archivos CSV del proceso electoral del año 2015 desde la carpeta especificada.
+```{r}
+archivos_csv_2018 <- list.files(path = "~/limpieza/electos/{{cookiecutter.project_slug}}/data/raw/2018", pattern = "\\.xlsx$", full.names = TRUE)
+```
+
+### Mostrar los Archivos Cargados: {.fade-in}
+Aquí mostramos la lista de archivos CSV que se han cargado para verificar que se han leído correctamente.
+```{r}
+print(archivos_csv_2018)
+```
+
+### Utilizar la Función de Limpieza de Datos: {.fade-in}
+En esta sección, aplicamos una función de limpieza a cada uno de los archivos CSV cargados para preparar los datos para su análisis.
+```{r}
+datos_2018 <- purrr::map_dfr(archivos_csv_2018, limpiar_datos_xl)
+```
+
+### Mostrar el Resultado: {.fade-in}
+Mostramos los datos limpios en una tabla interactiva para una revisión visual rápida.
+```{r}
+reactable(datos_2018)
+```
+
+### Guardar los Resultados en la Carpeta 'Preprocessed': {.fade-in}
+Finalmente, guardamos los datos limpios en un archivo CSV en la carpeta 'preprocessed' para su uso posterior.
+```{r}
+# write_excel_csv(datos_2018, "~/limpieza/electos/{{cookiecutter.project_slug}}/data/processed/datos_2018.xlsx")
+```
+Se añade comentario para evitar sobreescritura de los csv. Lo cual aplica en los procesos electorales futuros.
+
+
+## Proceso Electoral 2019: {.fade-in}
+
+### Cargar los Archivos del Proceso Electoral 2015: {.fade-in}
+En esta sección, cargamos todos los archivos CSV del proceso electoral del año 2015 desde la carpeta especificada.
+```{r}
+archivos_csv_2019 <- list.files(path = "~/limpieza/electos/{{cookiecutter.project_slug}}/data/raw/2019", pattern = "\\.xlsx$", full.names = TRUE)
+```
+
+### Mostrar los Archivos Cargados: {.fade-in}
+Aquí mostramos la lista de archivos CSV que se han cargado para verificar que se han leído correctamente.
+```{r}
+print(archivos_csv_2019)
+```
+
+### Utilizar la Función de Limpieza de Datos: {.fade-in}
+En esta sección, aplicamos una función de limpieza a cada uno de los archivos CSV cargados para preparar los datos para su análisis.
+```{r}
+datos_2019 <- purrr::map_dfr(archivos_csv_2019, limpiar_datos_xl)
+```
+
+### Mostrar el Resultado: {.fade-in}
+Mostramos los datos limpios en una tabla interactiva para una revisión visual rápida.
+```{r}
+reactable(datos_2019)
+```
+
+### Guardar los Resultados en la Carpeta 'Preprocessed': {.fade-in}
+Finalmente, guardamos los datos limpios en un archivo CSV en la carpeta 'preprocessed' para su uso posterior.
+```{r}
+# write_excel_csv(datos_2019, "~/limpieza/electos/{{cookiecutter.project_slug}}/data/processed/datos_2019.xlsx")
+```
+Se añade comentario para evitar sobreescritura de los csv. Lo cual aplica en los procesos electorales futuros.
+
+
+## Proceso Electoral 2020: {.fade-in}
+
+### Cargar los Archivos del Proceso Electoral 2015: {.fade-in}
+En esta sección, cargamos todos los archivos CSV del proceso electoral del año 2015 desde la carpeta especificada.
+```{r}
+archivos_csv_2020 <- list.files(path = "~/limpieza/electos/{{cookiecutter.project_slug}}/data/raw/2020", pattern = "\\.xlsx$", full.names = TRUE)
+```
+
+### Mostrar los Archivos Cargados: {.fade-in}
+Aquí mostramos la lista de archivos CSV que se han cargado para verificar que se han leído correctamente.
+```{r}
+print(archivos_csv_2020)
+```
+
+### Utilizar la Función de Limpieza de Datos: {.fade-in}
+En esta sección, aplicamos una función de limpieza a cada uno de los archivos CSV cargados para preparar los datos para su análisis.
+```{r}
+datos_2020 <- purrr::map_dfr(archivos_csv_2020, limpiar_datos_xl)
+```
+
+### Mostrar el Resultado: {.fade-in}
+Mostramos los datos limpios en una tabla interactiva para una revisión visual rápida.
+```{r}
+reactable(datos_2020)
+```
+
+### Guardar los Resultados en la Carpeta 'Preprocessed': {.fade-in}
+Finalmente, guardamos los datos limpios en un archivo CSV en la carpeta 'preprocessed' para su uso posterior.
+```{r}
+# write_excel_csv(datos_2020, "~/limpieza/electos/{{cookiecutter.project_slug}}/data/processed/datos_2020.xlsx")
+```
+Se añade comentario para evitar sobreescritura de los csv. Lo cual aplica en los procesos electorales futuros.
+
+
+## Proceso Electoral 2021: {.fade-in}
+
+### Cargar los Archivos del Proceso Electoral 2021: {.fade-in}
+En esta sección, cargamos todos los archivos CSV del proceso electoral del año 2015 desde la carpeta especificada.
+```{r}
+archivos_csv_2021 <- list.files(path = "~/limpieza/electos/{{cookiecutter.project_slug}}/data/raw/2021", pattern = "\\.xlsx$", full.names = TRUE)
+```
+
+### Mostrar los Archivos Cargados: {.fade-in}
+Aquí mostramos la lista de archivos CSV que se han cargado para verificar que se han leído correctamente.
+```{r}
+print(archivos_csv_2021)
+```
+
+### Utilizar la Función de Limpieza de Datos: {.fade-in}
+En esta sección, aplicamos una función de limpieza a cada uno de los archivos CSV cargados para preparar los datos para su análisis.
+```{r}
+datos_2021 <- purrr::map_dfr(archivos_csv_2021, limpiar_datos_xl)
+```
+
+### Mostrar el Resultado: {.fade-in}
+Mostramos los datos limpios en una tabla interactiva para una revisión visual rápida.
+```{r}
+reactable(datos_2021)
+```
+
+### Guardar los Resultados en la Carpeta 'Preprocessed': {.fade-in}
+Finalmente, guardamos los datos limpios en un archivo CSV en la carpeta 'preprocessed' para su uso posterior.
+```{r}
+# write_excel_csv(datos_2021, "~/limpieza/electos/{{cookiecutter.project_slug}}/data/processed/datos_2021.xlsx")
+```
+Se añade comentario para evitar sobreescritura de los csv. Lo cual aplica en los procesos electorales futuros.
+
+
+## Proceso Electoral 2022: {.fade-in}
+
+### Cargar los Archivos del Proceso Electoral 2022: {.fade-in}
+En esta sección, cargamos todos los archivos CSV del proceso electoral del año 2015 desde la carpeta especificada.
+```{r}
+archivos_csv_2022 <- list.files(path = "~/limpieza/electos/{{cookiecutter.project_slug}}/data/raw/2022", pattern = "\\.csv$", full.names = TRUE)
+```
+
+### Mostrar los Archivos Cargados: {.fade-in}
+Aquí mostramos la lista de archivos CSV que se han cargado para verificar que se han leído correctamente.
+```{r}
+print(archivos_csv_2022)
+```
+
+### Utilizar la Función de Limpieza de Datos: {.fade-in}
+En esta sección, aplicamos una función de limpieza a cada uno de los archivos CSV cargados para preparar los datos para su análisis.
+```{r}
+datos_2022 <- purrr::map_dfr(archivos_csv_2022, limpiar_datos)
+```
+
+### Mostrar el Resultado: {.fade-in}
+Mostramos los datos limpios en una tabla interactiva para una revisión visual rápida.
+```{r}
+reactable(datos_2022)
+```
+
+### Guardar los Resultados en la Carpeta 'Preprocessed': {.fade-in}
+Finalmente, guardamos los datos limpios en un archivo CSV en la carpeta 'preprocessed' para su uso posterior.
+```{r}
+# write_excel_csv(datos_2022, "~/limpieza/electos/{{cookiecutter.project_slug}}/data/processed/datos_2022.xlsx")
+```
+Se añade comentario para evitar sobreescritura de los csv. Lo cual aplica en los procesos electorales futuros.
+
+
+## Proceso Electoral 2023: {.fade-in}
+
+### Cargar los Archivos del Proceso Electoral 2023: {.fade-in}
+En esta sección, cargamos todos los archivos CSV del proceso electoral del año 2015 desde la carpeta especificada.
+```{r}
+archivos_csv_2023 <- list.files(path = "~/limpieza/electos/{{cookiecutter.project_slug}}/data/raw/2023", pattern = "\\.csv$", full.names = TRUE)
+```
+
+### Mostrar los Archivos Cargados: {.fade-in}
+Aquí mostramos la lista de archivos CSV que se han cargado para verificar que se han leído correctamente.
+```{r}
+print(archivos_csv_2023)
+```
+
+### Utilizar la Función de Limpieza de Datos: {.fade-in}
+En esta sección, aplicamos una función de limpieza a cada uno de los archivos CSV cargados para preparar los datos para su análisis.
+```{r}
+datos_2023 <- purrr::map_dfr(archivos_csv_2023, limpiar_datos)
+```
+
+### Mostrar el Resultado: {.fade-in}
+Mostramos los datos limpios en una tabla interactiva para una revisión visual rápida.
+```{r}
+reactable(datos_2023)
+```
+
+### Guardar los Resultados en la Carpeta 'Preprocessed': {.fade-in}
+Finalmente, guardamos los datos limpios en un archivo CSV en la carpeta 'preprocessed' para su uso posterior.
+```{r}
+write_excel_csv(datos_2023, "~/limpieza/electos/{{cookiecutter.project_slug}}/data/processed/datos_2023.xlsx")
+```
+Se añade comentario para evitar sobreescritura de los csv. Lo cual aplica en los procesos electorales futuros.
